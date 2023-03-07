@@ -8,5 +8,5 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/users/all",user.getAll);
-
+router.post("/users/create",user.create);
 module.exports = router;
