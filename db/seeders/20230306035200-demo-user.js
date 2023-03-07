@@ -1,5 +1,6 @@
 'use strict';
-
+var uniqueName = require('unique-names-generator');
+// const names = require('unique-names-generator/dist/unique-names-generator.constructor');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -12,13 +13,20 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Users',[{
-      firstName:"agung",
-      lastName:"prayogi",
-      email:"agungprayogi291@gmail.com",
-      createdAt : new Date(),
-      updatedAt : new Date()
-    }])
+    let users = [];
+    for(let i = 0; i < 50 ; i++){
+      let user = {
+        firstName:uniqueName.names[i],
+        lastName:uniqueName.names[i],
+        email:uniqueName.names[i] + "@gmail.com",
+        createdAt : new Date(),
+        updatedAt : new Date()
+      }
+      users.push(user)
+    }
+    await queryInterface.bulkInsert('Users',
+      users
+     )
   },
 
   async down (queryInterface, Sequelize) {
